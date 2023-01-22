@@ -6,9 +6,6 @@ package cmd
 
 import (
 	"os"
-	"bufio"
-	"fmt"
-	"strconv"
 	"github.com/spf13/cobra"
 )
 
@@ -27,26 +24,7 @@ to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(InputFilepath)
-		file, err := os.Open(InputFilepath)
-		if err != nil {
-			os.Exit(1)
-		}
-		defer file.Close()
-
-		scanner := bufio.NewScanner(file)
-
-		for scanner.Scan() {
-			//fmt.Println(scanner.Text())
-			value, err := strconv.Atoi(scanner.Text())
-			if err != nil { os.Exit(1) }
-			fmt.Printf("Value as int: %d\n", value)
-			
-		}
-
-		if err := scanner.Err(); err != nil {
-			os.Exit(1)
-		}
+        dayOnePart1(InputFilepath)   
     },
 }
 
