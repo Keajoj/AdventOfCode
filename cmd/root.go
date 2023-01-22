@@ -15,8 +15,8 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "aoc",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
+	Short: "run code for an aoc day solution",
+    Long: `TODO: A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
 
 Cobra is a CLI library for Go that empowers applications.
@@ -24,7 +24,9 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	 Run: func(cmd *cobra.Command, args []string) {
+         TODO: 
+     },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -46,6 +48,7 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+    rootCmd.PersistentFlags().StringP("file","f","","problem input file path")
 }
 
 
