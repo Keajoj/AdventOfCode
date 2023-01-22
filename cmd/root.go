@@ -6,11 +6,13 @@ package cmd
 
 import (
 	"os"
-
+	"bufio"
+	"fmt"
+	"strconv"
 	"github.com/spf13/cobra"
 )
 
-
+var InputFilepath string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -24,9 +26,28 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	 Run: func(cmd *cobra.Command, args []string) {
-         TODO: 
-     },
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(InputFilepath)
+		file, err := os.Open(InputFilepath)
+		if err != nil {
+			os.Exit(1)
+		}
+		defer file.Close()
+
+		scanner := bufio.NewScanner(file)
+
+		for scanner.Scan() {
+			//fmt.Println(scanner.Text())
+			value, err := strconv.Atoi(scanner.Text())
+			if err != nil { os.Exit(1) }
+			fmt.Printf("Value as int: %d\n", value)
+			
+		}
+
+		if err := scanner.Err(); err != nil {
+			os.Exit(1)
+		}
+    },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -48,7 +69,7 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-    rootCmd.PersistentFlags().StringP("file","f","","problem input file path")
+    rootCmd.PersistentFlags().StringVarP(&InputFilepath,"file","f","","problem input file path")
 }
 
 
